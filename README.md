@@ -48,16 +48,20 @@ IN QR code
 ```
 [in_qr_text]Привет, мир![/in_qr_text]
 ```
+![Привет, мир!](asserts/demo/text-1.png)
+
 
 ### QR синего цвета с прозрачным фоном
 ```
 [in_qr_text fgcolor="#0000CC" bgcolor="transparent"]Привет Мир![/in_qr_text]
 ```
+![Привет, мир!](asserts/demo/text-2.png)
 
 ### QR с текстом и произвольным логотипом
 ```
-[in_qr_text level="H" logo="/uploads/2021/07/album-1.jpg"]Привет Мир![/in_qr_text]
+[in_qr_text level="H" logo="/uploads/2022/06/wordpress-plugin.jpg"]Привет Мир![/in_qr_text]
 ```
+![Привет, мир!](asserts/demo/text-3.png)
 
 ## Шорткод in_qr_url
 Кодирует URL и выводит изображение ссылкой на этот URL.
@@ -66,13 +70,16 @@ IN QR code
 
 ### Ссылка на сайт
 ```
-[in_qr_url]https://ya.ru/[/in_qr_url]
+[in_qr_url]https://github.com/ivannikitin-com/in-qr-code[/in_qr_url]
 ```
+![Пример URL](asserts/demo/url-1.png)
 
 ## Ссылка на сайт размером 300x300
 ```
-[in_qr_url width="300" height="300"]https://ya.ru/[/in_qr_url]
+[in_qr_url width="300" height="300"]https://github.com/ivannikitin-com/in-qr-code[/in_qr_url]
 ```
+![Пример URL](asserts/demo/url-2.png)
+
 
 ## Шорткод in_qr_email
 Кодирует E-mail и выводит изображение ссылкой на этот URL.
@@ -83,6 +90,8 @@ IN QR code
 ```
 [in_qr_email]test@example.com[/in_qr_email]
 ```
+![test@example.com](asserts/demo/email.png)
+
 
 ## Шорткод in_qr_vcard
 Кодирует визитную карточку в формате [vCard](https://ru.wikipedia.org/wiki/VCard).
@@ -107,6 +116,8 @@ IN QR code
    email="o.bender@mail.ru"
 ]Остап Бендер[/in_qr_vcard]
 ```
+![Остап Бендер](asserts/demo/vcard.png)
+
 
 ## Шорткод in_qr_payment
 Кодирует платежные реквизиты в [ГОСТ Р 56042-2014](https://docs.cntd.ru/document/1200110981).
@@ -138,4 +149,4 @@ IN QR code
    sum="100"
 ]Добровольное пожертвование на кофе разработчику плагина[/in_qr_payment]
 ```
-
+![Пожертвование на кофе](asserts/demo/payment.png)

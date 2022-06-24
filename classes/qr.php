@@ -123,9 +123,6 @@ class QR {
      * Генерация QR кода
      */
     public function generate() {
-
-        echo 'DEBUG:<pre>'; echo $this->type->get_content();echo '</pre>';
-
         // Имя файла для кэша
         $this->filename = $this->type->get_hash() . '.png';
 
