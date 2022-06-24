@@ -40,18 +40,42 @@
          'in_qr_payment',     // QR платежными реквизитами
       );
       foreach ( $shortcodes as $shortcode ) {
-         add_shortcode( $shortcode, array( $this, 'do_shortcode' ) );
+         add_shortcode( , array( $this, 'do_shortcode' ) );
+         add_filter( $shortcode, array( $this, 'do_filter' ), 10, 2 );
       }
    }
 
    /**
     * Обработчик шорткодов
     * @param mixed  $atts    Ассоциативный массив атрибутов указанных в шорткоде
-    * @param string $atts    Текст шорткода, когда используется контентный шорткод
+    * @param string $content Текст QR для генерации
     * @param string $tag     Имя шорткода
-    * @return string
+    * @return string         Возвращает HTML код для вставки на страницу 
     */
    public function do_shortcode( $atts, $content, $tag ) {
+      $qr = $this->get_qr( $atts, $content, $tag );
+      return $qr->get_html();
+   }
+
+   /**
+    * Обработчик фильтра
+    * @param string $content Текст QR для генерации
+    * @param mixed  $atts    Ассоциативный массив атрибутов указанных в шорткоде
+    * @return string         Возвращает URL к файлу c QR кодом
+    */
+    public function do_filter( $content, $atts ) {
+      $qr = $this->get_qr( $atts, $content, $tag );
+      return $qr->get_url();
+   }   
+
+   /**
+    * Формирование QR кода
+    * @param mixed  $atts    Ассоциативный массив атрибутов указанных в шорткоде
+    * @param string $content Текст QR для генерации
+    * @param string $tag     Имя шорткода
+    * @return QR
+    */
+   private function get_qr( $atts, $content, $tag ) {
       // Создаем нужный тип контента
       switch ( $tag ) {
          case 'in_qr_url' :
@@ -75,9 +99,6 @@
       }
 
       // Создаем QR код
-      $qr = new QR( $type );
-
-      // Вернем результат
-      return $qr->get_html();
+      return new QR( $type );      
    }
 }
