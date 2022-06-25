@@ -19,30 +19,49 @@
    /**
     * Возвращает экземпляр класса
     */
-    public static function get_instance() {
-        if (self::$_instance === null) {
-            self::$_instance = new self;  
-        }
- 
-        return self::$_instance;
-    }
+   public static function get_instance() {
+      if (self::$_instance === null) {
+         self::$_instance = new self;  
+      }
+
+      return self::$_instance;
+   }
+
+   /**
+    * Шорт-коды плагина
+    * @var mixed
+    */
+   private $shortcodes;
 
    /**
     * Конструктор класса
     */
    private function __construct() {
       // Шорткоды плагина
-      $shortcodes = array(
-         'in_qr_text',        // QR с текстом
-         'in_qr_url',         // QR с URL
-         'in_qr_email',       // QR с E-mail
-         'in_qr_vcard',       // QR с визиткой
-         'in_qr_payment',     // QR платежными реквизитами
+      $this->shortcodes = array(
+         'in_qr_text'      => __( 'QR с текстом', IN_QR_CODE ),
+         'in_qr_url'       => __( 'QR с URL', IN_QR_CODE ),
+         'in_qr_email'     => __( 'QR с E-mail', IN_QR_CODE ),
+         'in_qr_vcard'     => __( 'QR с визиткой', IN_QR_CODE ),
+         'in_qr_payment'   => __( 'QR платежными реквизитами', IN_QR_CODE )
       );
-      foreach ( $shortcodes as $shortcode ) {
-         add_shortcode( , array( $this, 'do_shortcode' ) );
+
+      // Инициализация шорткодов и фильтров
+      foreach ( $this->get_shortcodes() as $shortcode => $description ) {
+         add_shortcode( $shortcode, array( $this, 'do_shortcode' ) );
          add_filter( $shortcode, array( $this, 'do_filter' ), 10, 2 );
       }
+
+      // Инициализация генератора
+      if ( is_admin() ) new Generator();
+   }
+
+   /**
+    * Возвращает список шорткодов
+    * @return mixed
+    */
+   public function get_shortcodes() {
+      return $this->shortcodes;
    }
 
    /**

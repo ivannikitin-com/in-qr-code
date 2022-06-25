@@ -33,6 +33,7 @@ define( 'IN_QR_CODE_DIR', dirname( __FILE__ ) );	  // Папка плагина
 /* Классы */
 require_once( IN_QR_CODE_DIR . '/classes/plugin.php' );
 require_once( IN_QR_CODE_DIR . '/classes/qr.php' );
+require_once( IN_QR_CODE_DIR . '/classes/generator.php' );
 require_once( IN_QR_CODE_DIR . '/classes/types/base_text.php' );
 require_once( IN_QR_CODE_DIR . '/classes/types/url.php' );
 require_once( IN_QR_CODE_DIR . '/classes/types/email.php' );
