@@ -10,17 +10,14 @@ namespace IN_QR_CODE;
 
 class Payment extends Base_Text { 
     /**
-     * Получает и сохраняет контент
-     * 
-     * @param string    $payment    Назначение платежа
-     * @param mixed     $params     Массив параметров, необходимый для генерации кода
+     * Возвращает массив настроек для этого типа
+     * @static
+     * @return mixed
      */
-    public function __construct( $payment, $params = array() ) {
-        // Если $params не массив, заменяем его пустым массивом
-        if ( ! is_array( $params ) ) $params = array();        
-        parent::__construct( $payment, array_merge( array(
+    public static function get_params() {
+        return array(
             // Параметры для QR оплаты
-            'name'  => '',              // Получатель платежа
+            'payee'  => '',             // Получатель платежа
             'acc'  => '',               // Номер банковского счета получателя
             'bank'  => '',              // Название банка            
             'bic'  => '',               // БИК      
@@ -30,9 +27,24 @@ class Payment extends Base_Text {
             'last_name'  => '',         // Фамилия плательщика
             'first_name'  => '',        // Имя плательщика
             'middle_name'  => '',       // Отчество плательщика
-            'address'  => '',           // Адрес плательщика
-            'purpose'  => $payment,     // Назначение платежа
+            'payer_addr'  => '',        // Адрес плательщика
+            'purpose'  => '',           // Назначение платежа
             'sum'  => 0                 // Сумма оплаты
+        );
+    }
+
+
+    /**
+     * Получает и сохраняет контент
+     * 
+     * @param string    $payment    Назначение платежа
+     * @param mixed     $params     Массив параметров, необходимый для генерации кода
+     */
+    public function __construct( $payment, $params = array() ) {
+        // Если $params не массив, заменяем его пустым массивом
+        if ( ! is_array( $params ) ) $params = array();        
+        parent::__construct( $payment, array_merge( self::get_params(),  array(
+            'purpose'  => $payment,     // Назначение платежа
         ), $params ) );
     }
 
@@ -45,7 +57,7 @@ class Payment extends Base_Text {
         foreach ( $this->params as $param => $value ) {
             if ( empty( $value ) ) continue;
             switch ( $param ) {
-                case 'name':
+                case 'payee':
                     $content .= '|Name=' . $value;
                     break;
 
@@ -85,7 +97,7 @@ class Payment extends Base_Text {
                     $content .= '|MiddleName=' . $value;
                     break;
 
-                case 'address':
+                case 'payer_addr':
                     $content .= '|PayerAddr' . $value;
                     break;
 

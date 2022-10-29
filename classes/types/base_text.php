@@ -24,6 +24,24 @@ class Base_Text {
      */
     protected $params = array();
 
+    /**
+     * Возвращает массив настроек для этого типа
+     * @static
+     * @return mixed
+     */
+    public static function get_params() {
+        return array(
+            'width'     => '',              // Ширина QR кода
+            'height'    => '',              // Высота QR кода
+            'size'      => 3,               // размер «пикселя»
+            'margin'    => 2,               // Отступ от краев, задаётся в единицах, указанных в $size
+            'level'     => 'L',             // Уровень коррекции ошибок (L, M, Q, H)
+            'bgcolor'   => '#FFFFFF',       // Цвет фона, может быть transparent
+            'fgcolor'   => '#000000',       // Цвет пикселей
+            'logo'      => null,            // Логотип в изображении
+            'alt'       => ''               // Атрибут ALT
+        );
+    }
 
     /**
      * Получает и сохраняет контент
@@ -38,16 +56,8 @@ class Base_Text {
         if ( ! is_array( $params ) ) $params = array();
 
         // Список параметров, нужный для генерации кода
-        $this->params = array_merge( array(
-            'width'     => '',              // Ширина QR кода
-            'height'    => '',              // Высота QR кода
-            'size'      => 3,               // размер «пикселя»
-            'margin'    => 2,               // Отступ от краев, задаётся в единицах, указанных в $size
-            'level'     => 'L',             // Уровень коррекции ошибок (L, M, Q, H)
-            'bgcolor'   => '#FFFFFF',       // Цвет фона, может быть transparent
-            'fgcolor'   => '#000000',       // Цвет пикселей
-            'logo'      => null,            // Логотип в изображении
-            'alt'       => $content         // Атрибут ALT
+        $this->params = array_merge( self::get_params(), array(
+            'alt' => $content         // Атрибут ALT
         ), $params );
     }
 

@@ -10,18 +10,15 @@ namespace IN_QR_CODE;
 
 class VCard extends Base_Text { 
     /**
-     * Получает и сохраняет контент
-     * 
-     * @param string    $name       Имя пользователя, используется, если не задан параметр name
-     * @param mixed     $params     Массив параметров, необходимый для генерации кода
+     * Возвращает массив настроек для этого типа
+     * @static
+     * @return mixed
      */
-    public function __construct( $name, $params = array() ) {
-        // Если $params не массив, заменяем его пустым массивом
-        if ( ! is_array( $params ) ) $params = array();        
-        parent::__construct( $alt, array_merge( array(
+    public static function get_params() {
+        return array(
             // Параметры vCard
             // https://ru.wikipedia.org/wiki/VCard
-            'name'  => $name,           // Имя пользователя
+            'name'  => '',              // Имя пользователя
             'title'  => '',             // Должность
             'org'  => '',               // Название компании            
             'birthday'  => '',          // День рождения ГГГГ-ММ-ДД
@@ -30,6 +27,20 @@ class VCard extends Base_Text {
             'email'  => '',             // E-mail
             'url'  => '',               // Адрес сайта
             'note'  => ''               // Заметки
+        );
+    }
+
+    /**
+     * Получает и сохраняет контент
+     * 
+     * @param string    $name       Имя пользователя, используется, если не задан параметр name
+     * @param mixed     $params     Массив параметров, необходимый для генерации кода
+     */
+    public function __construct( $name, $params = array() ) {
+        // Если $params не массив, заменяем его пустым массивом
+        if ( ! is_array( $params ) ) $params = array();        
+        parent::__construct( $name, array_merge( self::get_params(), array(
+            'name'  => $name,           // Имя пользователя
         ), $params ) );
     }
 
